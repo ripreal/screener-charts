@@ -1,1 +1,1 @@
-kubectl create secret docker-registry mysecret --docker-server=ghcr.io --docker-username=solution8 --docker-password=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 --docker-email=mail@screener.com
+kubectl create secret docker-registry mysecret --docker-server=ghcr.io --docker-username=solution8 --docker-password=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 --docker-email=mail@screener.com
