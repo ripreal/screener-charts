@@ -1,0 +1,22 @@
+{{- if .Values.webapi.hpa.enabled -}}
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: {{ .Release.Name }}-web-api
+  labels:
+    app: {{ .Release.Name }}
+spec:
+  scaleTargetRef:
+    kind: Deployment
+    apiVersion: apps/v1
+    name: {{ .Release.Name }}-instance-service
+  minReplicas: {{ .Values.webapi.hpa.minpods }}
+  maxReplicas: {{ .Values.webapi.hpa.maxpods }}
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+      target:
+        type: Utilization
+        averageUtilization: {{ .Values.webapi.hpa.cputhreshold }}
+  {{- end }}

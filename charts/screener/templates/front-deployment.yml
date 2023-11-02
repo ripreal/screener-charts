@@ -18,7 +18,7 @@ spec:
         - env:
           - name: ACTIVE_PROFILE
             value: docker
-          image: {{ .Values.image.repository }}/front:{{ .Values.image.tag }}
+          image: {{ .Values.image.repository }}/front:k8s
           imagePullPolicy: Always
           name: front
           ports:

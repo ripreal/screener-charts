@@ -8,3 +8,12 @@ services:
 
 front:
   resources: {}
+
+webapi:
+  hpa:
+    enabled: true
+    cputhreshold: 50
+    minpods: 1
+    maxpods: 2
+  replicaCount: 1
+  resources: {}
