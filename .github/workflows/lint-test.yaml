@@ -2,7 +2,8 @@ name: Lint and Test Charts
 
 on:
   push:
-    branches: [ master ]
+    branches-ignore:
+      - main
   pull_request:
     branches: [ master ]
 
