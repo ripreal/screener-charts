@@ -1,44 +1,10 @@
 image:
-  repository: ghcr.io/ripreal
+  repository: ghcr.io/solution8
   tag: latest
   pullPolicy: Always
 
 services:
   targetPort: 3000
 
-waconfig:
-  resources: {}
-    #requests:
-    #  memory: "512M"
-    #  cpu: "0.1"
-    #limits:
-    #  memory: "512M"
-    #  cpu: "0.2"
-
-apigateway:
-  hpa:
-    enabled: true
-    cputhreshold: 50
-    minpods: 1
-    maxpods: 2
-  replicaCount: 1
-  resources:
-    requests:
-      memory: "256M"
-      cpu: "0.20"
-    limits:
-      memory: "1024M"
-      cpu: "1"
-
-instanceservice:
-  hpa:
-    enabled: true
-    cputhreshold: 50
-    minpods: 1
-    maxpods: 2
-  replicaCount: 1
-  resources: {}
-
-userservice:
-  replicaCount: 1
+front:
   resources: {}

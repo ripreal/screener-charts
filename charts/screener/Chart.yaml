@@ -1,7 +1,7 @@
 apiVersion: v2
 dependencies:
 
-name: screener-charts
+name: screener
 description: Open-source bot constructor, an alternative to Intercom, Zendesk, Salesforce Service Cloud etc. 🔥💬
 type: application
 keywords:
