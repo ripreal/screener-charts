@@ -30,4 +30,4 @@ spec:
       hostname: front
       restartPolicy: Always
       imagePullSecrets:
-        - name: secret/mysecret
+        - name: mysecret
