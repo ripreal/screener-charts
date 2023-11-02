@@ -5,8 +5,8 @@ This repository contains helm charts for [screener-charts](https://github.com/ri
 
 ## Installation
 ```bash
-helm repo add screener-charts https://ripreal.github.io/screener-charts
-helm install screener-charts charts/screener-charts
+helm repo add screener https://ripreal.github.io/screener-charts
+helm install screener-charts screener/screener-charts
 ```
 
 ## Configuration

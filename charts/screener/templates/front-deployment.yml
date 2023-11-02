@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-front
+  labels:
+    app: {{ .Release.Name }}-front
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}-front
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}-front
+    spec:
+      containers:
+        - env:
+          - name: ACTIVE_PROFILE
+            value: docker
+          image: {{ .Values.image.repository }}/front:{{ .Values.image.tag }}
+          imagePullPolicy: Always
+          name: front
+          ports:
+            - containerPort: 9000
+          {{- with .Values.front.resources }}
+          resources:
+            {{- toYaml . | nindent 12 }}
+            {{- end }}
+      hostname: front
+      restartPolicy: Always
+      imagePullSecrets:
+        - name: {{ .Release.Name }}-docker-secrets

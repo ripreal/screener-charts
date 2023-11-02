@@ -1,3 +1,3 @@
 helm delete screener-charts
 helm repo update
-helm install screener-charts ripreal/screener-charts
+helm install screener-charts screener/screener-charts

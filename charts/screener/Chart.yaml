@@ -1,7 +1,7 @@
 apiVersion: v2
 dependencies:
 
-name: screener-charts
+name: screener
 description: Open-source bot constructor, an alternative to Intercom, Zendesk, Salesforce Service Cloud etc. 🔥💬
 type: application
 keywords:
@@ -13,7 +13,7 @@ keywords:
 home: https://github.com/ripreal/charts
 
 # This is the chart version.
-version: 1.0.1
+version: 1.0.5
 
 # This is the application version.
 appVersion: "v1.0.0"
