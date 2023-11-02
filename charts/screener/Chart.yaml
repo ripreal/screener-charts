@@ -1,0 +1,19 @@
+apiVersion: v2
+dependencies:
+
+name: screener-charts
+description: Open-source bot constructor, an alternative to Intercom, Zendesk, Salesforce Service Cloud etc. 🔥💬
+type: application
+keywords:
+  - whatsapp
+  - open source
+  - chat
+  - chatbot
+  - crm
+home: https://github.com/ripreal/charts
+
+# This is the chart version.
+version: 1.0.160
+
+# This is the application version.
+appVersion: "v1.0.0"

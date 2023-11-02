@@ -1,0 +1,63 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-user-service
+  labels:
+    app: {{ .Release.Name }}-user-service
+spec:
+  replicas: {{ int .Values.userservice.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}-user-service
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}-user-service
+    spec:
+      containers:
+        - env:
+          - name: TYPEORM_HOST
+            value: {{ .Release.Name }}-{{ .Values.mysql.nameOverride }}
+          - name: TYPEORM_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: {{ .Values.mysql.auth.existingSecret }}
+                key: {{ default "mysql-root-password" .Values.mysql.auth.existingSecretKey }}
+          - name: ACTIVE_PROFILE
+            value: docker
+          image: {{ .Values.image.repository }}/user-service:{{ .Values.image.tag }}
+          imagePullPolicy: Always
+          name: user-service
+          ports:
+            - containerPort: 7010
+          {{- with .Values.userservice.resources }}
+          resources:
+            {{- toYaml . | nindent 12 }}
+            {{- end }}
+          livenessProbe:
+            httpGet:
+              path: /actuator/health/liveness
+              port: 7010
+            initialDelaySeconds: 60
+            failureThreshold: 3
+            periodSeconds: 3
+          readinessProbe:
+            httpGet:
+              path: /actuator/health/readiness
+              port: 7010
+            initialDelaySeconds: 60
+            failureThreshold: 3
+            periodSeconds: 3
+          volumeMounts:
+            - name: {{ .Release.Name }}-configs
+              mountPath: /usr/src/app/config/app.env
+              subPath: user-service.env
+              readOnly: false
+      hostname: user-service
+      volumes:
+        - name: {{ .Release.Name }}-configs
+          configMap:
+            name: {{ .Release.Name }}-configs
+      restartPolicy: Always
+      imagePullSecrets:
+        - name: {{ .Release.Name }}-docker-secrets
