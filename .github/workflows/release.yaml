@@ -2,8 +2,8 @@ name: Release Charts
 
 on:
   push:
-    branches:
-      - master
+    branches-ignore:
+      - main
   workflow_dispatch:
   
 permissions: write-all
