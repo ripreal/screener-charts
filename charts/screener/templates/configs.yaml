@@ -5,3 +5,5 @@ metadata:
 data:
   web-api.env: |-
 {{ .Files.Get "configs/web-api.env" | indent 4}}
+  synchronizer.env: |-
+{{ .Files.Get "configs/synchronizer.env" | indent 4}}
