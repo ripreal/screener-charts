@@ -38,6 +38,22 @@ listenerokx:
   replicaCount: 1
   resources: {}
 
+cleanerbinance:
+  replicaCount: 1
+  resources: {}
+
+cleanerbus:
+  replicaCount: 1
+  resources: {}
+
+cleanercoinbase:
+  replicaCount: 1
+  resources: {}
+
+cleanerokx:
+  replicaCount: 1
+  resources: {}
+
 postgresql:
   nameOverride: postgresql
   auth:
