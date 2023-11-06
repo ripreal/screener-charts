@@ -51,10 +51,10 @@ spec:
           - name: EXCHANGE
             value: binance
           - name: TYPE
-            value: spot
+            value: coinm
           image: {{ .Values.image.repository }}/listener:{{ .Values.image.tag }}
           imagePullPolicy: Always
-          name: {{ .Release.Name }}-listener-binance-spot
+          name: {{ .Release.Name }}-listener-binance-coinm
           {{- with .Values.listenerbinance.resources }}
           resources:
             {{- toYaml . | nindent 12 }}
