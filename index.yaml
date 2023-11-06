@@ -3,6 +3,28 @@ entries:
   screener:
   - apiVersion: v2
     appVersion: v1.0.0
+    created: "2023-11-06T17:40:54.419457791Z"
+    dependencies:
+    - name: postgresql
+      repository: https://charts.bitnami.com/bitnami
+      version: 13.2.1
+    description: "Open-source bot constructor, an alternative to Intercom, Zendesk,
+      Salesforce Service Cloud etc. \U0001F525\U0001F4AC"
+    digest: 19565b41d562d83187551887654f2402eef2e9f5105d23eaa41ec71362770ab2
+    home: https://github.com/ripreal/charts
+    keywords:
+    - whatsapp
+    - open source
+    - chat
+    - chatbot
+    - crm
+    name: screener
+    type: application
+    urls:
+    - https://github.com/ripreal/screener-charts/releases/download/screener-1.0.41/screener-1.0.41.tgz
+    version: 1.0.41
+  - apiVersion: v2
+    appVersion: v1.0.0
     created: "2023-11-06T17:01:20.515281003Z"
     dependencies:
     - name: postgresql
@@ -730,4 +752,4 @@ entries:
     urls:
     - https://github.com/ripreal/screener-charts/releases/download/screener-charts-1.0.1/screener-charts-1.0.1.tgz
     version: 1.0.1
-generated: "2023-11-06T17:01:20.515633439Z"
+generated: "2023-11-06T17:40:54.419772391Z"
