@@ -18,6 +18,9 @@ webapi:
   replicaCount: 1
   resources: {}
 
+synchronizer:
+  replicaCount: 1
+  resources: {}
 
 postgresql:
   nameOverride: postgresql

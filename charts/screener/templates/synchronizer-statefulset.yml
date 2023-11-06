@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ .Release.Name }}-synchronizer
+spec:
+  replicas: 1
+  serviceName: {{ .Release.Name }}-synchronizer
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}-synchronizer
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}-synchronizer
+    spec:
+      containers:
+        - env:
+          - name: DB_HOST
+            value: {{ .Release.Name }}-{{ .Values.postgresql.nameOverride }}
+          - name: DB_USERNAME
+            value: {{ .Values.postgresql.auth.username }}
+          - name: DB_PASSWORD
+            value: {{ .Values.postgresql.auth.password }}
+          - name: DB_DATABASE
+            value: {{ .Values.postgresql.auth.database }}
+          image: {{ .Values.image.repository }}/synchronizer:{{ .Values.image.tag }}
+          imagePullPolicy: Always
+          name: {{ .Release.Name }}-synchronizer
+          ports:
+            - containerPort: 6002
+          {{- with .Values.synchronizer.resources }}
+          resources:
+            {{- toYaml . | nindent 12 }}
+            {{- end }}
+          volumeMounts:
+            - name: {{ .Release.Name }}-configs
+              mountPath: /usr/src/app/.env
+              subPath: synchronizer.env
+              readOnly: false
+      hostname: {{ .Release.Name }}-synchronizer
+      volumes:
+        - name: {{ .Release.Name }}-configs
+          configMap:
+            name: {{ .Release.Name }}-configs
+      restartPolicy: Always
+      imagePullSecrets:
+        - name: {{ .Release.Name }}-docker-secrets
