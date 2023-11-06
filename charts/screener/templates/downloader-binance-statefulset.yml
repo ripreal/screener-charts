@@ -30,7 +30,7 @@ spec:
           - name: TIMEFRAMES
             value: 1d,1w,1M
           - name: RPM
-            value: 100
+            value: '100'
           image: {{ .Values.image.repository }}/downloader:{{ .Values.image.tag }}
           imagePullPolicy: Always
           name: {{ .Release.Name }}-downloader-binance-spot
