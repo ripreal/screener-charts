@@ -1,31 +1,51 @@
 apiVersion: batch/v1
-kind: CronJob
+kind: Job
 metadata:
-  name: downloader-start
+  name: downloader-job
+  labels:
+    app: downloader-job
+  annotations:
+    "helm.sh/hook": pre-install,pre-upgrade
+    "helm.sh/hook-weight": "-1"
+    "helm.sh/hook-delete-policy": before-hook-creation
 spec:
-  concurrencyPolicy: Forbid
-  schedule: '0 * * * *' # cron spec of time, here, 8 o'clock
-  jobTemplate:
+  template:
     spec:
-      backoffLimit: 2 # this has very low chance of failing, as all this does
-                      # is prompt kubernetes to schedule new replica set for
-                      # the deployment
-      activeDeadlineSeconds: 600 # timeout, makes most sense with 
-                                 # "waiting for rollout" variant specified below
-      template:
-        spec:
-          serviceAccountName: downloader-start # name of the service
-                                                 # account configured above
-          restartPolicy: Never
-          containers:
-            - name: kubectl
-              image: bitnami/kubectl # probably any kubectl image will do,
-                                     # optionaly specify version, but this
-                                     # should not be necessary, as long the
-                                     # version of kubectl is new enough to
-                                     # have `rollout restart`
-              command:
-                - 'kubectl'
-                - 'rollout'
-                - 'restart'
-                - 'statefulset/sdkwa-downloader-binance'
+      containers:
+        - env:
+          - name: DB_HOST
+            value: {{ .Release.Name }}-{{ .Values.postgresql.nameOverride }}
+          - name: DB_USERNAME
+            value: {{ .Values.postgresql.auth.username }}
+          - name: DB_PASSWORD
+            value: {{ .Values.postgresql.auth.password }}
+          - name: DB_DATABASE
+            value: {{ .Values.postgresql.auth.database }}
+          - name: EXCHANGE
+            value: binance
+          - name: MRKT_TYPE
+            value: spot
+          - name: TIMEFRAMES
+            value: 1d,1w,1M
+          - name: RPM
+            value: '100'
+          image: {{ .Values.image.repository }}/downloader:{{ .Values.image.tag }}
+          imagePullPolicy: Always
+          name: {{ .Release.Name }}-downloader-binance-spot
+          {{- with .Values.downloaderbinance.resources }}
+          resources:
+            {{- toYaml . | nindent 12 }}
+            {{- end }}
+          volumeMounts:
+            - name: {{ .Release.Name }}-configs
+              mountPath: /usr/src/app/.env
+              subPath: downloader.env
+              readOnly: false
+      hostname: {{ .Release.Name }}-downloader-binance
+      volumes:
+        - name: {{ .Release.Name }}-configs
+          configMap:
+            name: {{ .Release.Name }}-configs
+      restartPolicy: Always
+      imagePullSecrets:
+        - name: {{ .Release.Name }}-docker-secrets
