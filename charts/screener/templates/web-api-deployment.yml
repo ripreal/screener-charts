@@ -16,15 +16,12 @@ spec:
     spec:
       containers:
         - env:
-          - name: TYPEORM_HOST
-            value: {{ .Release.Name }}-{{ .Values.mysql.nameOverride }}
-          - name: TYPEORM_PASSWORD
-            valueFrom:
-              secretKeyRef:
-                name: {{ .Values.mysql.auth.existingSecret }}
-                key: {{ default "mysql-root-password" .Values.mysql.auth.existingSecretKey }}
-          - name: ACTIVE_PROFILE
-            value: docker
+          - name: DB_USERNAME
+            value: {{ .Release.Name }}-{{ .Values.postgresql.auth.username }}
+          - name: DB_PASSWORD
+            value: {{ .Release.Name }}-{{ .Values.postgresql.auth.password }}
+          - name: DB_DATABASE
+            value: {{ .Release.Name }}-{{ .Values.postgresql.auth.database }}
           image: {{ .Values.image.repository }}/web-api:{{ .Values.image.tag }}
           imagePullPolicy: Always
           name: web-api
@@ -34,23 +31,9 @@ spec:
           resources:
             {{- toYaml . | nindent 12 }}
             {{- end }}
-          livenessProbe:
-            httpGet:
-              path: /actuator/health/liveness
-              port: 7020
-            initialDelaySeconds: 60
-            failureThreshold: 3
-            periodSeconds: 3
-          readinessProbe:
-            httpGet:
-              path: /actuator/health/readiness
-              port: 7020
-            initialDelaySeconds: 60
-            failureThreshold: 3
-            periodSeconds: 3
           volumeMounts:
             - name: {{ .Release.Name }}-configs
-              mountPath: /usr/src/app/config/app.env
+              mountPath: /usr/src/app/.env
               subPath: web-api.env
               readOnly: false
       hostname: web-api

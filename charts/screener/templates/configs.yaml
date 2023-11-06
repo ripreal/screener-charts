@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Release.Name }}-configs
+data:
+  web-api.env: |-
+{{ .Files.Get "configs/web-api.env" | indent 4}}

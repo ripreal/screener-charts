@@ -17,3 +17,15 @@ webapi:
     maxpods: 2
   replicaCount: 1
   resources: {}
+
+
+postgresql:
+  nameOverride: postgresql
+  auth:
+    username: admin
+    password: admin
+    database: trading
+  initdb:
+    scripts:
+      createdb.sql: |-
+        CREATE DATABASE "trading";
