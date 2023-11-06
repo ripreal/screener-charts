@@ -2,7 +2,7 @@ apiVersion: v2
 dependencies:
   - name: postgresql
     repository: https://charts.bitnami.com/postgresql
-    version: 13.2.1
+    version: 11.16.2
 
 name: screener
 description: Open-source bot constructor, an alternative to Intercom, Zendesk, Salesforce Service Cloud etc. 🔥💬
