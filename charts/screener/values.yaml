@@ -22,6 +22,10 @@ synchronizer:
   replicaCount: 1
   resources: {}
 
+listenerbinance:
+  replicaCount: 1
+  resources: {}
+
 postgresql:
   nameOverride: postgresql
   auth:

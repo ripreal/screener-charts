@@ -7,3 +7,5 @@ data:
 {{ .Files.Get "configs/web-api.env" | indent 4}}
   synchronizer.env: |-
 {{ .Files.Get "configs/synchronizer.env" | indent 4}}
+  listener.env: |-
+{{ .Files.Get "configs/listener.env" | indent 4}}
