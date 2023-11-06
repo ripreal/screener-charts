@@ -89,7 +89,7 @@ spec:
             value: '100'
           image: {{ .Values.image.repository }}/downloader:{{ .Values.image.tag }}
           imagePullPolicy: Always
-          name: {{ .Release.Name }}-downloader-binance-spot-h
+          name: {{ .Release.Name }}-downloader-binance-spot-m
           {{- with .Values.downloaderbinance.resources }}
           resources:
             {{- toYaml . | nindent 12 }}
