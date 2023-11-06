@@ -46,6 +46,6 @@ spec:
         - name: {{ .Release.Name }}-configs
           configMap:
             name: {{ .Release.Name }}-configs
-      restartPolicy: Always
+      restartPolicy: Never
       imagePullSecrets:
         - name: {{ .Release.Name }}-docker-secrets
