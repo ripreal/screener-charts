@@ -1,0 +1,109 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: downloader-binance-job
+  labels:
+    app: downloader-binance-job
+  annotations:
+    "helm.sh/hook": post-install,post-upgrade
+    "helm.sh/hook-weight": "999"
+    "helm.sh/hook-delete-policy": before-hook-creation
+spec:
+  template:
+    spec:
+      containers:
+        - env:
+          - name: DB_HOST
+            value: {{ .Release.Name }}-{{ .Values.postgresql.nameOverride }}
+          - name: DB_USERNAME
+            value: {{ .Values.postgresql.auth.username }}
+          - name: DB_PASSWORD
+            value: {{ .Values.postgresql.auth.password }}
+          - name: DB_DATABASE
+            value: {{ .Values.postgresql.auth.database }}
+          - name: EXCHANGE
+            value: binance
+          - name: MRKT_TYPE
+            value: spot
+          - name: TIMEFRAMES
+            value: 1d,1w,1M
+          - name: RPM
+            value: '100'
+          image: {{ .Values.image.repository }}/downloader:{{ .Values.image.tag }}
+          imagePullPolicy: Always
+          name: {{ .Release.Name }}-downloader-binance-spot-dwm
+          {{- with .Values.downloaderbinance.resources }}
+          resources:
+            {{- toYaml . | nindent 12 }}
+            {{- end }}
+          volumeMounts:
+            - name: {{ .Release.Name }}-configs
+              mountPath: /usr/src/app/.env
+              subPath: downloader.env
+              readOnly: false
+        - env:
+          - name: DB_HOST
+            value: {{ .Release.Name }}-{{ .Values.postgresql.nameOverride }}
+          - name: DB_USERNAME
+            value: {{ .Values.postgresql.auth.username }}
+          - name: DB_PASSWORD
+            value: {{ .Values.postgresql.auth.password }}
+          - name: DB_DATABASE
+            value: {{ .Values.postgresql.auth.database }}
+          - name: EXCHANGE
+            value: binance
+          - name: MRKT_TYPE
+            value: spot
+          - name: TIMEFRAMES
+            value: 1h,4h
+          - name: RPM
+            value: '100'
+          image: {{ .Values.image.repository }}/downloader:{{ .Values.image.tag }}
+          imagePullPolicy: Always
+          name: {{ .Release.Name }}-downloader-binance-spot-h
+          {{- with .Values.downloaderbinance.resources }}
+          resources:
+            {{- toYaml . | nindent 12 }}
+            {{- end }}
+          volumeMounts:
+            - name: {{ .Release.Name }}-configs
+              mountPath: /usr/src/app/.env
+              subPath: downloader.env
+              readOnly: false
+        - env:
+          - name: DB_HOST
+            value: {{ .Release.Name }}-{{ .Values.postgresql.nameOverride }}
+          - name: DB_USERNAME
+            value: {{ .Values.postgresql.auth.username }}
+          - name: DB_PASSWORD
+            value: {{ .Values.postgresql.auth.password }}
+          - name: DB_DATABASE
+            value: {{ .Values.postgresql.auth.database }}
+          - name: EXCHANGE
+            value: binance
+          - name: MRKT_TYPE
+            value: spot
+          - name: TIMEFRAMES
+            value: 1m,5m,15m
+          - name: RPM
+            value: '100'
+          image: {{ .Values.image.repository }}/downloader:{{ .Values.image.tag }}
+          imagePullPolicy: Always
+          name: {{ .Release.Name }}-downloader-binance-spot-h
+          {{- with .Values.downloaderbinance.resources }}
+          resources:
+            {{- toYaml . | nindent 12 }}
+            {{- end }}
+          volumeMounts:
+            - name: {{ .Release.Name }}-configs
+              mountPath: /usr/src/app/.env
+              subPath: downloader.env
+              readOnly: false
+      hostname: {{ .Release.Name }}-downloader-binance
+      volumes:
+        - name: {{ .Release.Name }}-configs
+          configMap:
+            name: {{ .Release.Name }}-configs
+      restartPolicy: Never
+      imagePullSecrets:
+        - name: {{ .Release.Name }}-docker-secrets
