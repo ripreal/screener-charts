@@ -19,11 +19,11 @@ spec:
           - name: DB_HOST
             value: {{ .Release.Name }}-{{ .Values.postgresql.nameOverride }}
           - name: DB_USERNAME
-            value: {{ .Release.Name }}-{{ .Values.postgresql.auth.username }}
+            value: {{ .Values.postgresql.auth.username }}
           - name: DB_PASSWORD
-            value: {{ .Release.Name }}-{{ .Values.postgresql.auth.password }}
+            value: {{ .Values.postgresql.auth.password }}
           - name: DB_DATABASE
-            value: {{ .Release.Name }}-{{ .Values.postgresql.auth.database }}
+            value: {{ .Values.postgresql.auth.database }}
           image: {{ .Values.image.repository }}/web-api:{{ .Values.image.tag }}
           imagePullPolicy: Always
           name: web-api
