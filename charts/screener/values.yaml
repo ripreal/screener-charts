@@ -58,6 +58,18 @@ downloaderbinance:
   replicaCount: 1
   resources: {}
 
+downloaderbus:
+  replicaCount: 1
+  resources: {}
+
+downloadercoinbase:
+  replicaCount: 1
+  resources: {}
+
+downloaderokx:
+  replicaCount: 1
+  resources: {}
+
 postgresql:
   nameOverride: postgresql
   auth:
