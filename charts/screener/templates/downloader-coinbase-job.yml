@@ -6,7 +6,7 @@ metadata:
     app: downloader-coinbase-job
   annotations:
     "helm.sh/hook": post-install,post-upgrade
-    "helm.sh/hook-weight": "999"
+    "helm.sh/hook-weight": "997"
     "helm.sh/hook-delete-policy": before-hook-creation
 spec:
   template:
