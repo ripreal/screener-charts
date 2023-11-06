@@ -11,3 +11,5 @@ data:
 {{ .Files.Get "configs/listener.env" | indent 4}}
   cleaner.env: |-
 {{ .Files.Get "configs/cleaner.env" | indent 4}}
+  downloader.env: |-
+{{ .Files.Get "configs/downloader.env" | indent 4}}

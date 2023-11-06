@@ -54,6 +54,10 @@ cleanerokx:
   replicaCount: 1
   resources: {}
 
+downloaderbinance:
+  replicaCount: 1
+  resources: {}
+
 postgresql:
   nameOverride: postgresql
   auth:
