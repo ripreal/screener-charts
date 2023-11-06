@@ -28,7 +28,7 @@ spec:
           imagePullPolicy: Always
           name: web-api
           ports:
-            - containerPort: 7020
+            - containerPort: 3000
           {{- with .Values.webapi.resources }}
           resources:
             {{- toYaml . | nindent 12 }}

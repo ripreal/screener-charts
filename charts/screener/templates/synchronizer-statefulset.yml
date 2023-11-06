@@ -26,8 +26,6 @@ spec:
           image: {{ .Values.image.repository }}/synchronizer:{{ .Values.image.tag }}
           imagePullPolicy: Always
           name: {{ .Release.Name }}-synchronizer
-          ports:
-            - containerPort: 6002
           {{- with .Values.synchronizer.resources }}
           resources:
             {{- toYaml . | nindent 12 }}

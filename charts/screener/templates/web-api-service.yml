@@ -7,5 +7,5 @@ spec:
     app: {{ .Release.Name }}-web-api
   ports:
     - protocol: TCP
-      port: 7020
-      targetPort: 7020
+      port: 3000
+      targetPort: 3000
