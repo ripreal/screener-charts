@@ -16,7 +16,7 @@ keywords:
 home: https://github.com/ripreal/charts
 
 # This is the chart version.
-version: 1.0.44
+version: 1.0.45
 
 # This is the application version.
 appVersion: "v1.0.0"
