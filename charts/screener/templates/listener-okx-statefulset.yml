@@ -1,17 +1,17 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: {{ .Release.Name }}-listener-binance
+  name: {{ .Release.Name }}-listener-okx
 spec:
   replicas: 1
-  serviceName: {{ .Release.Name }}-listener-binance
+  serviceName: {{ .Release.Name }}-listener-okx
   selector:
     matchLabels:
-      app: {{ .Release.Name }}-listener-binance
+      app: {{ .Release.Name }}-listener-okx
   template:
     metadata:
       labels:
-        app: {{ .Release.Name }}-listener-binance
+        app: {{ .Release.Name }}-listener-okx
     spec:
       containers:
         - env:
@@ -24,13 +24,13 @@ spec:
           - name: DB_DATABASE
             value: {{ .Values.postgresql.auth.database }}
           - name: EXCHANGE
-            value: binance
+            value: okx
           - name: TYPE
             value: spot
           image: {{ .Values.image.repository }}/listener:{{ .Values.image.tag }}
           imagePullPolicy: Always
-          name: {{ .Release.Name }}-listener-binance-spot
-          {{- with .Values.listenerbinance.resources }}
+          name: {{ .Release.Name }}-listener-okx-spot
+          {{- with .Values.listenerokx.resources }}
           resources:
             {{- toYaml . | nindent 12 }}
             {{- end }}
@@ -49,13 +49,13 @@ spec:
           - name: DB_DATABASE
             value: {{ .Values.postgresql.auth.database }}
           - name: EXCHANGE
-            value: binance
+            value: okx
           - name: TYPE
-            value: coinm
+            value: swap
           image: {{ .Values.image.repository }}/listener:{{ .Values.image.tag }}
           imagePullPolicy: Always
-          name: {{ .Release.Name }}-listener-binance-coinm
-          {{- with .Values.listenerbinance.resources }}
+          name: {{ .Release.Name }}-listener-okx-swap
+          {{- with .Values.listenerokx.resources }}
           resources:
             {{- toYaml . | nindent 12 }}
             {{- end }}
@@ -74,13 +74,13 @@ spec:
           - name: DB_DATABASE
             value: {{ .Values.postgresql.auth.database }}
           - name: EXCHANGE
-            value: binance
+            value: okx
           - name: TYPE
-            value: usdm
+            value: futures
           image: {{ .Values.image.repository }}/listener:{{ .Values.image.tag }}
           imagePullPolicy: Always
-          name: {{ .Release.Name }}-listener-binance-usdm
-          {{- with .Values.listenerbinance.resources }}
+          name: {{ .Release.Name }}-listener-okx-futures
+          {{- with .Values.listenerokx.resources }}
           resources:
             {{- toYaml . | nindent 12 }}
             {{- end }}
@@ -89,7 +89,7 @@ spec:
               mountPath: /usr/src/app/.env
               subPath: listener.env
               readOnly: false
-      hostname: {{ .Release.Name }}-listener-binance
+      hostname: {{ .Release.Name }}-listener-okx
       volumes:
         - name: {{ .Release.Name }}-configs
           configMap:

@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ .Release.Name }}-listener-coinbase
+spec:
+  replicas: 1
+  serviceName: {{ .Release.Name }}-listener-coinbase
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}-listener-coinbase
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}-listener-coinbase
+    spec:
+      containers:
+        - env:
+          - name: DB_HOST
+            value: {{ .Release.Name }}-{{ .Values.postgresql.nameOverride }}
+          - name: DB_USERNAME
+            value: {{ .Values.postgresql.auth.username }}
+          - name: DB_PASSWORD
+            value: {{ .Values.postgresql.auth.password }}
+          - name: DB_DATABASE
+            value: {{ .Values.postgresql.auth.database }}
+          - name: EXCHANGE
+            value: coinbase
+          - name: TYPE
+            value: spot
+          image: {{ .Values.image.repository }}/listener:{{ .Values.image.tag }}
+          imagePullPolicy: Always
+          name: {{ .Release.Name }}-listener-coinbase-spot
+          {{- with .Values.listenercoinbase.resources }}
+          resources:
+            {{- toYaml . | nindent 12 }}
+            {{- end }}
+          volumeMounts:
+            - name: {{ .Release.Name }}-configs
+              mountPath: /usr/src/app/.env
+              subPath: listener.env
+              readOnly: false
+      hostname: {{ .Release.Name }}-listener-coinbase
+      volumes:
+        - name: {{ .Release.Name }}-configs
+          configMap:
+            name: {{ .Release.Name }}-configs
+      restartPolicy: Always
+      imagePullSecrets:
+        - name: {{ .Release.Name }}-docker-secrets

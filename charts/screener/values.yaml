@@ -26,6 +26,18 @@ listenerbinance:
   replicaCount: 1
   resources: {}
 
+listenerbus:
+  replicaCount: 1
+  resources: {}
+
+listenercoinbase:
+  replicaCount: 1
+  resources: {}
+
+listenerokx:
+  replicaCount: 1
+  resources: {}
+
 postgresql:
   nameOverride: postgresql
   auth:
