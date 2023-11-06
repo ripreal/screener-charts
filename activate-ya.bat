@@ -1,0 +1,1 @@
+kubectl config use-context yc-sdkwa-k8s
