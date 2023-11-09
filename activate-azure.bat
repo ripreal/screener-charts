@@ -1,0 +1,1 @@
+kubectl config use-context CTL-SCRNR-AKS-CLUSTER
