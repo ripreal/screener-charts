@@ -72,7 +72,7 @@ downloaderokx:
   resources: {}
 
 postgresql:
-  nameOverride: colombo.postgres.database.azure.com
+  nameOverride: colombo.private.postgres.database.azure.com
   auth:
     username: digger
     password: BshfRyeIeA9gqSo
