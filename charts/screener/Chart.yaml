@@ -1,8 +1,8 @@
 apiVersion: v2
-dependencies:
-  - name: postgresql
-    version: 13.2.1
-    repository: https://charts.bitnami.com/bitnami
+#dependencies:
+#  - name: postgresql
+#    version: 13.2.1
+#    repository: https://charts.bitnami.com/bitnami
 
 name: screener
 description: Open-source bot constructor, an alternative to Intercom, Zendesk, Salesforce Service Cloud etc. 🔥💬
@@ -16,7 +16,7 @@ keywords:
 home: https://github.com/ripreal/charts
 
 # This is the chart version.
-version: 1.0.48
+version: 2.0.1
 
 # This is the application version.
 appVersion: "v1.0.0"

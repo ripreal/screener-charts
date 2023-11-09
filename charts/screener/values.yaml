@@ -1,5 +1,6 @@
 image:
-  repository: ghcr.io/solution8
+
+  repository: cryptotradinglabrg.azurecr.io
   tag: latest
   pullPolicy: Always
 
@@ -71,10 +72,10 @@ downloaderokx:
   resources: {}
 
 postgresql:
-  nameOverride: postgresql
+  nameOverride: colombo.postgres.database.azure.com
   auth:
-    username: admin
-    password: admin
+    username: digger
+    password: BshfRyeIeA9gqSo
     database: trading
   initdb:
     scripts:
