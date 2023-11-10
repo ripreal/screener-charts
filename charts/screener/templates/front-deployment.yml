@@ -3,16 +3,16 @@ kind: Deployment
 metadata:
   name: {{ .Release.Name }}-front
   labels:
-    app: {{ .Release.Name }}-front
+    app: {{ .Release.Name }}
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: {{ .Release.Name }}-front
+      app: {{ .Release.Name }}
   template:
     metadata:
       labels:
-        app: {{ .Release.Name }}-front
+        app: {{ .Release.Name }}
     spec:
       containers:
         - env:

@@ -4,7 +4,7 @@ metadata:
   name: {{ .Release.Name }}-front
 spec:
   selector:
-    app: {{ .Release.Name }}-front
+    app: {{ .Release.Name }}
   ports:
     - name: front
       protocol: TCP
