@@ -75,7 +75,7 @@ postgresql:
   nameOverride: colombo.postgres.database.azure.com
   auth:
     username: digger
-    password: BshfRyeIeA9gqSo
+    password: OLK5CbMyXRRnbui
     database: trading
   initdb:
     scripts:
