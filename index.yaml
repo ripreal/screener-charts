@@ -3,6 +3,24 @@ entries:
   screener:
   - apiVersion: v2
     appVersion: v1.0.0
+    created: "2023-11-10T10:42:11.414147304Z"
+    description: "Open-source bot constructor, an alternative to Intercom, Zendesk,
+      Salesforce Service Cloud etc. \U0001F525\U0001F4AC"
+    digest: 746b19dcd0dcede7eb6559bc26c24ffc0f0ad31e6fecc08b96e731fb430178f5
+    home: https://github.com/ripreal/charts
+    keywords:
+    - whatsapp
+    - open source
+    - chat
+    - chatbot
+    - crm
+    name: screener
+    type: application
+    urls:
+    - https://github.com/ripreal/screener-charts/releases/download/screener-2.0.5/screener-2.0.5.tgz
+    version: 2.0.5
+  - apiVersion: v2
+    appVersion: v1.0.0
     created: "2023-11-09T18:48:16.672232882Z"
     description: "Open-source bot constructor, an alternative to Intercom, Zendesk,
       Salesforce Service Cloud etc. \U0001F525\U0001F4AC"
@@ -978,4 +996,4 @@ entries:
     urls:
     - https://github.com/ripreal/screener-charts/releases/download/screener-charts-1.0.1/screener-charts-1.0.1.tgz
     version: 1.0.1
-generated: "2023-11-09T18:48:16.672813385Z"
+generated: "2023-11-10T10:42:11.414605125Z"
