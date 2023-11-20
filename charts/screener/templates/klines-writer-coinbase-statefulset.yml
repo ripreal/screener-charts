@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ .Release.Name }}-klines-writer-coinbase
+spec:
+  replicas: 1
+  serviceName: {{ .Release.Name }}-klines-writer-coinbase
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}-klines-writer-coinbase
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}-klines-writer-coinbase
+    spec:
+      containers:
+        - env:
+          - name: DB_HOST
+            value: {{ .Values.postgresql.nameOverride }}
+          - name: DB_USERNAME
+            value: {{ .Values.postgresql.auth.username }}
+          - name: DB_PASSWORD
+            value: {{ .Values.postgresql.auth.password }}
+          - name: DB_DATABASE
+            value: {{ .Values.postgresql.auth.database }}
+          - name: EXCHANGE
+            value: coinbase
+          - name: TYPE
+            value: spot
+          image: {{ .Values.image.repository }}/klines-writer:{{ .Values.image.tag }}
+          imagePullPolicy: Always
+          name: {{ .Release.Name }}-klines-writer-coinbase-spot
+          {{- with .Values.klineswritercoinbase.resources }}
+          resources:
+            {{- toYaml . | nindent 12 }}
+            {{- end }}
+          volumeMounts:
+            - name: {{ .Release.Name }}-configs
+              mountPath: /usr/src/app/.env
+              subPath: klines-writer.env
+              readOnly: false
+      hostname: {{ .Release.Name }}-klines-writer-coinbase
+      volumes:
+        - name: {{ .Release.Name }}-configs
+          configMap:
+            name: {{ .Release.Name }}-configs
+      restartPolicy: Always
+      imagePullSecrets:
+        - name: {{ .Release.Name }}-docker-secrets

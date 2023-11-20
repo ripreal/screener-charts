@@ -1,17 +1,17 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: {{ .Release.Name }}-listener-coinbase
+  name: {{ .Release.Name }}-klines-writer-bus
 spec:
   replicas: 1
-  serviceName: {{ .Release.Name }}-listener-coinbase
+  serviceName: {{ .Release.Name }}-klines-writer-bus
   selector:
     matchLabels:
-      app: {{ .Release.Name }}-listener-coinbase
+      app: {{ .Release.Name }}-klines-writer-bus
   template:
     metadata:
       labels:
-        app: {{ .Release.Name }}-listener-coinbase
+        app: {{ .Release.Name }}-klines-writer-bus
     spec:
       containers:
         - env:
@@ -24,22 +24,22 @@ spec:
           - name: DB_DATABASE
             value: {{ .Values.postgresql.auth.database }}
           - name: EXCHANGE
-            value: coinbase
+            value: binance_us
           - name: TYPE
             value: spot
-          image: {{ .Values.image.repository }}/listener:{{ .Values.image.tag }}
+          image: {{ .Values.image.repository }}/klines-writer:{{ .Values.image.tag }}
           imagePullPolicy: Always
-          name: {{ .Release.Name }}-listener-coinbase-spot
-          {{- with .Values.listenercoinbase.resources }}
+          name: {{ .Release.Name }}-klines-writer-bus-spot
+          {{- with .Values.klineswriterbus.resources }}
           resources:
             {{- toYaml . | nindent 12 }}
             {{- end }}
           volumeMounts:
             - name: {{ .Release.Name }}-configs
               mountPath: /usr/src/app/.env
-              subPath: listener.env
+              subPath: klines-writer.env
               readOnly: false
-      hostname: {{ .Release.Name }}-listener-coinbase
+      hostname: {{ .Release.Name }}-klines-writer-bus
       volumes:
         - name: {{ .Release.Name }}-configs
           configMap:

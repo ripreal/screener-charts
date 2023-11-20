@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ .Release.Name }}-klines-listener-bus
+spec:
+  replicas: 1
+  serviceName: {{ .Release.Name }}-klines-listener-bus
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}-klines-listener-bus
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}-klines-listener-bus
+    spec:
+      containers:
+        - env:
+          - name: DB_HOST
+            value: {{ .Values.postgresql.nameOverride }}
+          - name: DB_USERNAME
+            value: {{ .Values.postgresql.auth.username }}
+          - name: DB_PASSWORD
+            value: {{ .Values.postgresql.auth.password }}
+          - name: DB_DATABASE
+            value: {{ .Values.postgresql.auth.database }}
+          - name: EXCHANGE
+            value: binance_us
+          - name: TYPE
+            value: spot
+          image: {{ .Values.image.repository }}/klines-listener:{{ .Values.image.tag }}
+          imagePullPolicy: Always
+          name: {{ .Release.Name }}-klines-listener-bus-spot
+          {{- with .Values.klineslistenerbus.resources }}
+          resources:
+            {{- toYaml . | nindent 12 }}
+            {{- end }}
+          volumeMounts:
+            - name: {{ .Release.Name }}-configs
+              mountPath: /usr/src/app/.env
+              subPath: klines-listener.env
+              readOnly: false
+      hostname: {{ .Release.Name }}-klines-listener-bus
+      volumes:
+        - name: {{ .Release.Name }}-configs
+          configMap:
+            name: {{ .Release.Name }}-configs
+      restartPolicy: Always
+      imagePullSecrets:
+        - name: {{ .Release.Name }}-docker-secrets

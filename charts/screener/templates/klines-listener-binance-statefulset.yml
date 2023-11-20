@@ -1,17 +1,17 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: {{ .Release.Name }}-listener-binance
+  name: {{ .Release.Name }}-klines-listener-binance
 spec:
   replicas: 1
-  serviceName: {{ .Release.Name }}-listener-binance
+  serviceName: {{ .Release.Name }}-klines-listener-binance
   selector:
     matchLabels:
-      app: {{ .Release.Name }}-listener-binance
+      app: {{ .Release.Name }}-klines-listener-binance
   template:
     metadata:
       labels:
-        app: {{ .Release.Name }}-listener-binance
+        app: {{ .Release.Name }}-klines-listener-binance
     spec:
       containers:
         - env:
@@ -27,17 +27,17 @@ spec:
             value: binance
           - name: TYPE
             value: spot
-          image: {{ .Values.image.repository }}/listener:{{ .Values.image.tag }}
+          image: {{ .Values.image.repository }}/klines-listener:{{ .Values.image.tag }}
           imagePullPolicy: Always
-          name: {{ .Release.Name }}-listener-binance-spot
-          {{- with .Values.listenerbinance.resources }}
+          name: {{ .Release.Name }}-klines-listener-binance-spot
+          {{- with .Values.klineslistenerbinance.resources }}
           resources:
             {{- toYaml . | nindent 12 }}
             {{- end }}
           volumeMounts:
             - name: {{ .Release.Name }}-configs
               mountPath: /usr/src/app/.env
-              subPath: listener.env
+              subPath: klines-listener.env
               readOnly: false
         - env:
           - name: DB_HOST
@@ -52,17 +52,17 @@ spec:
             value: binance
           - name: TYPE
             value: coinm
-          image: {{ .Values.image.repository }}/listener:{{ .Values.image.tag }}
+          image: {{ .Values.image.repository }}/klines-listener:{{ .Values.image.tag }}
           imagePullPolicy: Always
-          name: {{ .Release.Name }}-listener-binance-coinm
-          {{- with .Values.listenerbinance.resources }}
+          name: {{ .Release.Name }}-klines-listener-binance-coinm
+          {{- with .Values.klineslistenerbinance.resources }}
           resources:
             {{- toYaml . | nindent 12 }}
             {{- end }}
           volumeMounts:
             - name: {{ .Release.Name }}-configs
               mountPath: /usr/src/app/.env
-              subPath: listener.env
+              subPath: klines-listener.env
               readOnly: false
         - env:
           - name: DB_HOST
@@ -77,19 +77,19 @@ spec:
             value: binance
           - name: TYPE
             value: usdm
-          image: {{ .Values.image.repository }}/listener:{{ .Values.image.tag }}
+          image: {{ .Values.image.repository }}/klines-listener:{{ .Values.image.tag }}
           imagePullPolicy: Always
-          name: {{ .Release.Name }}-listener-binance-usdm
-          {{- with .Values.listenerbinance.resources }}
+          name: {{ .Release.Name }}-klines-listener-binance-usdm
+          {{- with .Values.klineslistenerbinance.resources }}
           resources:
             {{- toYaml . | nindent 12 }}
             {{- end }}
           volumeMounts:
             - name: {{ .Release.Name }}-configs
               mountPath: /usr/src/app/.env
-              subPath: listener.env
+              subPath: klines-listener.env
               readOnly: false
-      hostname: {{ .Release.Name }}-listener-binance
+      hostname: {{ .Release.Name }}-klines-listener-binance
       volumes:
         - name: {{ .Release.Name }}-configs
           configMap:

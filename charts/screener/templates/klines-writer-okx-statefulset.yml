@@ -1,17 +1,17 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: {{ .Release.Name }}-listener-okx
+  name: {{ .Release.Name }}-klines-writer-okx
 spec:
   replicas: 1
-  serviceName: {{ .Release.Name }}-listener-okx
+  serviceName: {{ .Release.Name }}-klines-writer-okx
   selector:
     matchLabels:
-      app: {{ .Release.Name }}-listener-okx
+      app: {{ .Release.Name }}-klines-writer-okx
   template:
     metadata:
       labels:
-        app: {{ .Release.Name }}-listener-okx
+        app: {{ .Release.Name }}-klines-writer-okx
     spec:
       containers:
         - env:
@@ -27,17 +27,17 @@ spec:
             value: okx
           - name: TYPE
             value: spot
-          image: {{ .Values.image.repository }}/listener:{{ .Values.image.tag }}
+          image: {{ .Values.image.repository }}/klines-writer:{{ .Values.image.tag }}
           imagePullPolicy: Always
-          name: {{ .Release.Name }}-listener-okx-spot
-          {{- with .Values.listenerokx.resources }}
+          name: {{ .Release.Name }}-klines-writer-okx-spot
+          {{- with .Values.klineswriterokx.resources }}
           resources:
             {{- toYaml . | nindent 12 }}
             {{- end }}
           volumeMounts:
             - name: {{ .Release.Name }}-configs
               mountPath: /usr/src/app/.env
-              subPath: listener.env
+              subPath: klines-writer.env
               readOnly: false
         - env:
           - name: DB_HOST
@@ -52,17 +52,17 @@ spec:
             value: okx
           - name: TYPE
             value: swap
-          image: {{ .Values.image.repository }}/listener:{{ .Values.image.tag }}
+          image: {{ .Values.image.repository }}/klines-writer:{{ .Values.image.tag }}
           imagePullPolicy: Always
-          name: {{ .Release.Name }}-listener-okx-swap
-          {{- with .Values.listenerokx.resources }}
+          name: {{ .Release.Name }}-klines-writer-okx-swap
+          {{- with .Values.klineswriterokx.resources }}
           resources:
             {{- toYaml . | nindent 12 }}
             {{- end }}
           volumeMounts:
             - name: {{ .Release.Name }}-configs
               mountPath: /usr/src/app/.env
-              subPath: listener.env
+              subPath: klines-writer.env
               readOnly: false
         - env:
           - name: DB_HOST
@@ -77,19 +77,19 @@ spec:
             value: okx
           - name: TYPE
             value: futures
-          image: {{ .Values.image.repository }}/listener:{{ .Values.image.tag }}
+          image: {{ .Values.image.repository }}/klines-writer:{{ .Values.image.tag }}
           imagePullPolicy: Always
-          name: {{ .Release.Name }}-listener-okx-futures
-          {{- with .Values.listenerokx.resources }}
+          name: {{ .Release.Name }}-klines-writer-okx-futures
+          {{- with .Values.klineswriterokx.resources }}
           resources:
             {{- toYaml . | nindent 12 }}
             {{- end }}
           volumeMounts:
             - name: {{ .Release.Name }}-configs
               mountPath: /usr/src/app/.env
-              subPath: listener.env
+              subPath: klines-writer.env
               readOnly: false
-      hostname: {{ .Release.Name }}-listener-okx
+      hostname: {{ .Release.Name }}-klines-writer-okx
       volumes:
         - name: {{ .Release.Name }}-configs
           configMap:

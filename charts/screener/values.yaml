@@ -23,19 +23,35 @@ synchronizer:
   replicaCount: 1
   resources: {}
 
-listenerbinance:
+klineslistenerbinance:
   replicaCount: 1
   resources: {}
 
-listenerbus:
+klineslistenerbus:
   replicaCount: 1
   resources: {}
 
-listenercoinbase:
+klineslistenercoinbase:
   replicaCount: 1
   resources: {}
 
-listenerokx:
+klineslistenerokx:
+  replicaCount: 1
+  resources: {}
+
+klineswriterbinance:
+  replicaCount: 1
+  resources: {}
+
+klineswriterbus:
+  replicaCount: 1
+  resources: {}
+
+klineswritercoinbase:
+  replicaCount: 1
+  resources: {}
+
+klineswriterokx:
   replicaCount: 1
   resources: {}
 

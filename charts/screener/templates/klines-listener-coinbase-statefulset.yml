@@ -1,17 +1,17 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: {{ .Release.Name }}-listener-bus
+  name: {{ .Release.Name }}-klines-listener-coinbase
 spec:
   replicas: 1
-  serviceName: {{ .Release.Name }}-listener-bus
+  serviceName: {{ .Release.Name }}-klines-listener-coinbase
   selector:
     matchLabels:
-      app: {{ .Release.Name }}-listener-bus
+      app: {{ .Release.Name }}-klines-listener-coinbase
   template:
     metadata:
       labels:
-        app: {{ .Release.Name }}-listener-bus
+        app: {{ .Release.Name }}-klines-listener-coinbase
     spec:
       containers:
         - env:
@@ -24,22 +24,22 @@ spec:
           - name: DB_DATABASE
             value: {{ .Values.postgresql.auth.database }}
           - name: EXCHANGE
-            value: binance_us
+            value: coinbase
           - name: TYPE
             value: spot
-          image: {{ .Values.image.repository }}/listener:{{ .Values.image.tag }}
+          image: {{ .Values.image.repository }}/klines-listener:{{ .Values.image.tag }}
           imagePullPolicy: Always
-          name: {{ .Release.Name }}-listener-bus-spot
-          {{- with .Values.listenerbus.resources }}
+          name: {{ .Release.Name }}-klines-listener-coinbase-spot
+          {{- with .Values.klineslistenercoinbase.resources }}
           resources:
             {{- toYaml . | nindent 12 }}
             {{- end }}
           volumeMounts:
             - name: {{ .Release.Name }}-configs
               mountPath: /usr/src/app/.env
-              subPath: listener.env
+              subPath: klines-listener.env
               readOnly: false
-      hostname: {{ .Release.Name }}-listener-bus
+      hostname: {{ .Release.Name }}-klines-listener-coinbase
       volumes:
         - name: {{ .Release.Name }}-configs
           configMap:
