@@ -13,3 +13,9 @@ data:
 {{ .Files.Get "configs/cleaner.env" | indent 4}}
   downloader.env: |-
 {{ .Files.Get "configs/downloader.env" | indent 4}}
+  klines-listener.env: |-
+{{ .Files.Get "configs/klines-listener.env" | indent 4}}
+  klines-writer.env: |-
+{{ .Files.Get "configs/klines-writer.env" | indent 4}}
+  alert-manager.env: |-
+{{ .Files.Get "configs/alert-manager.env" | indent 4}}
