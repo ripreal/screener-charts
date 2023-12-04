@@ -114,6 +114,7 @@ postgresql:
 
 rabbitmq:
   nameOverride: rabbitmq
+  nameConnect: screener-rabbitmq
   auth:
     username: admin
     existingPasswordSecret: screener-secrets

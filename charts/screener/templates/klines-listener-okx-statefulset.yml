@@ -16,7 +16,7 @@ spec:
       containers:
         - env:
           - name: DB_HOST
-            value: {{ .Values.postgresql.nameOverride }}
+            value: {{ .Values.postgresql.nameConnect }}
           - name: DB_USERNAME
             value: {{ .Values.postgresql.auth.username }}
           - name: DB_PASSWORD
@@ -41,7 +41,7 @@ spec:
               readOnly: false
         - env:
           - name: DB_HOST
-            value: {{ .Values.postgresql.nameOverride }}
+            value: {{ .Values.postgresql.nameConnect }}
           - name: DB_USERNAME
             value: {{ .Values.postgresql.auth.username }}
           - name: DB_PASSWORD
@@ -68,7 +68,7 @@ spec:
               readOnly: false
         - env:
           - name: DB_HOST
-            value: {{ .Values.postgresql.nameOverride }}
+            value: {{ .Values.postgresql.nameConnect }}
           - name: DB_USERNAME
             value: {{ .Values.postgresql.auth.username }}
           - name: DB_PASSWORD

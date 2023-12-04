@@ -66,7 +66,7 @@ Create the name of the service account to use
 {{- if .Values.postgresql.fullnameOverride -}}
 {{- .Values.postgresql.fullnameOverride | trunc 63 | trimSuffix "-" -}}
 {{- else -}}
-{{- $name := default .Chart.Name .Values.postgresql.nameOverride -}}
+{{- $name := default .Chart.Name .Values.postgresql.nameConnect -}}
 {{- if contains $name .Release.Name -}}
 {{- .Release.Name | trunc 63 | trimSuffix "-" -}}
 {{- else -}}
