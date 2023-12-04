@@ -17,7 +17,7 @@ spec:
       containers:
         - env:
           - name: DB_HOST
-            value: {{ .Values.postgresql.nameOverride }}
+            value: screener-postgresql
           - name: DB_USERNAME
             value: {{ .Values.postgresql.auth.username }}
           - name: DB_PASSWORD
