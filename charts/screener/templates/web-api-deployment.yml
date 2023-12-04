@@ -16,6 +16,8 @@ spec:
     spec:
       containers:
         - env:
+          - name: DB_HOST
+            value: {{ .Values.postgresql.nameConnect }}
           - name: DB_USERNAME
             value: {{ .Values.postgresql.auth.username }}
           - name: DB_PASSWORD
