@@ -77,6 +77,8 @@ spec:
             value: binance
           - name: TYPE
             value: usdm
+          - name: RABBIT_URI
+            value: amqp://{{ .Values.rabbitmq.auth.username }}:admin@{{ .Release.Name }}-{{ .Values.rabbitmq.nameOverride}}:5672
           image: {{ .Values.image.repository }}/klines-writer:{{ .Values.image.tag }}
           imagePullPolicy: Always
           name: {{ .Release.Name }}-klines-writer-binance-usdm

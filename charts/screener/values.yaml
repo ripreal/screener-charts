@@ -1,6 +1,7 @@
 image:
 
-  repository: cryptotradinglabrg.azurecr.io
+  #repository: cryptotradinglabrg.azurecr.io
+  repository: ghcr.io/solution8
   tag: latest
   pullPolicy: Always
 
@@ -87,13 +88,32 @@ downloaderokx:
   replicaCount: 1
   resources: {}
 
+#PROD
+#postgresql:
+#  nameOverride: colombo.postgres.database.azure.com
+#  auth:
+#    username: digger
+#    password: OLK5CbMyXRRnbui
+#    database: trading
+#  initdb:
+#    scripts:
+#      createdb.sql: |-
+#        CREATE DATABASE "trading";
+
+#DEV
 postgresql:
-  nameOverride: colombo.postgres.database.azure.com
+  nameOverride: postgresql
   auth:
-    username: digger
-    password: OLK5CbMyXRRnbui
+    username: admin
+    password: admin
     database: trading
   initdb:
     scripts:
       createdb.sql: |-
         CREATE DATABASE "trading";
+
+rabbitmq:
+  nameOverride: rabbitmq
+  auth:
+    username: admin
+    existingPasswordSecret: sdkwa-secrets
