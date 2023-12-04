@@ -36,11 +36,11 @@ spec:
           resources:
             {{- toYaml . | nindent 12 }}
             {{- end }}
-          volumeMounts:
-            - name: {{ .Release.Name }}-configs
-              mountPath: /usr/src/app/.env
-              subPath: klines-listener.env
-              readOnly: false
+          #volumeMounts:
+          #  - name: {{ .Release.Name }}-configs
+          #    mountPath: /usr/src/app/.env
+          #    subPath: klines-listener.env
+          #    readOnly: false
       hostname: {{ .Release.Name }}-klines-listener-coinbase
       volumes:
         - name: {{ .Release.Name }}-configs
