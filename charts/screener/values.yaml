@@ -116,4 +116,4 @@ rabbitmq:
   nameOverride: rabbitmq
   auth:
     username: admin
-    existingPasswordSecret: sdkwa-secrets
+    existingPasswordSecret: screener-secrets
