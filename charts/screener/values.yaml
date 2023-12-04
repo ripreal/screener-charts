@@ -103,6 +103,7 @@ downloaderokx:
 #DEV
 postgresql:
   nameOverride: postgresql
+  nameConnect: screener-postgresql
   auth:
     username: admin
     password: admin
@@ -114,7 +115,6 @@ postgresql:
 
 rabbitmq:
   nameOverride: rabbitmq
-  nameConnect: screener-rabbitmq
   auth:
     username: admin
     existingPasswordSecret: screener-secrets
