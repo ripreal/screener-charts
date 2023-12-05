@@ -3,16 +3,16 @@ kind: Deployment
 metadata:
   name: {{ .Release.Name }}-web-api
   labels:
-    app: {{ .Release.Name }}-front
+    app: {{ .Release.Name }}-web-api
 spec:
   replicas: {{ int .Values.webapi.replicaCount }}
   selector:
     matchLabels:
-      app: {{ .Release.Name }}-front
+      app: {{ .Release.Name }}-web-api
   template:
     metadata:
       labels:
-        app: {{ .Release.Name }}-front
+        app: {{ .Release.Name }}-web-api
     spec:
       containers:
         - env:
