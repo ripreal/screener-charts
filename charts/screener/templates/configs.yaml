@@ -19,3 +19,5 @@ data:
 {{ .Files.Get "configs/klines-writer.env" | indent 4}}
   alert-manager.env: |-
 {{ .Files.Get "configs/alert-manager.env" | indent 4}}
+  alert-manager-templates.json: |-
+{{ .Files.Get "configs/alert-manager-templates.json" | indent 4}}

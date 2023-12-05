@@ -35,6 +35,10 @@ spec:
               mountPath: /usr/src/app/.env
               subPath: alert-manager.env
               readOnly: false
+            - name: {{ .Release.Name }}-configs
+              mountPath: /usr/src/app/public/templates/templates.json
+              subPath: alert-manager-templates.json
+              readOnly: false
       hostname: {{ .Release.Name }}-alert-manager
       volumes:
         - name: {{ .Release.Name }}-configs
