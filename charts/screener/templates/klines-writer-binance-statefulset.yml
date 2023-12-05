@@ -3,7 +3,7 @@ kind: StatefulSet
 metadata:
   name: {{ .Release.Name }}-klines-writer-binance
 spec:
-  replicas: 1
+  replicas: {{ int .Values.klineswriterbinance.replicaCount }}
   serviceName: {{ .Release.Name }}-klines-writer-binance
   selector:
     matchLabels:

@@ -1,17 +1,17 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: {{ .Release.Name }}-klines-listener-coinbase
+  name: {{ .Release.Name }}-alert-manager
 spec:
-  replicas: {{ int .Values.klineslistenercoinbase.replicaCount }}
-  serviceName: {{ .Release.Name }}-klines-listener-coinbase
+  replicas: {{ int .Values.alertmanager.replicaCount }}
+  serviceName: {{ .Release.Name }}-alert-manager
   selector:
     matchLabels:
-      app: {{ .Release.Name }}-klines-listener-coinbase
+      app: {{ .Release.Name }}-alert-manager
   template:
     metadata:
       labels:
-        app: {{ .Release.Name }}-klines-listener-coinbase
+        app: {{ .Release.Name }}-alert-manager
     spec:
       containers:
         - env:
@@ -23,25 +23,19 @@ spec:
             value: {{ .Values.postgresql.auth.password }}
           - name: DB_DATABASE
             value: {{ .Values.postgresql.auth.database }}
-          - name: EXCHANGE
-            value: coinbase
-          - name: TYPE
-            value: spot
-          - name: RABBIT_URI
-            value: amqp://{{ .Values.rabbitmq.auth.username }}:admin@{{ .Release.Name }}-{{ .Values.rabbitmq.nameOverride}}:5672
-          image: {{ .Values.image.repository }}/klines-listener:{{ .Values.image.tag }}
+          image: {{ .Values.image.repository }}/alert-manager:{{ .Values.image.tag }}
           imagePullPolicy: Always
-          name: {{ .Release.Name }}-klines-listener-coinbase-spot
-          {{- with .Values.klineslistenercoinbase.resources }}
+          name: {{ .Release.Name }}-alert-manager
+          {{- with .Values.alertmanager.resources }}
           resources:
             {{- toYaml . | nindent 12 }}
             {{- end }}
           volumeMounts:
             - name: {{ .Release.Name }}-configs
               mountPath: /usr/src/app/.env
-              subPath: klines-listener.env
+              subPath: alert-manager.env
               readOnly: false
-      hostname: {{ .Release.Name }}-klines-listener-coinbase
+      hostname: {{ .Release.Name }}-alert-manager
       volumes:
         - name: {{ .Release.Name }}-configs
           configMap:

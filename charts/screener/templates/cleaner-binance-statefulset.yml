@@ -3,7 +3,7 @@ kind: StatefulSet
 metadata:
   name: {{ .Release.Name }}-cleaner-binance
 spec:
-  replicas: 1
+  replicas: {{ int .Values.cleanerbinance.replicaCount }}
   serviceName: {{ .Release.Name }}-cleaner-binance
   selector:
     matchLabels:

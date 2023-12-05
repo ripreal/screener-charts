@@ -3,7 +3,7 @@ kind: StatefulSet
 metadata:
   name: {{ .Release.Name }}-klines-listener-bus
 spec:
-  replicas: 1
+  replicas: {{ int .Values.klineslistenerbus.replicaCount }}
   serviceName: {{ .Release.Name }}-klines-listener-bus
   selector:
     matchLabels:

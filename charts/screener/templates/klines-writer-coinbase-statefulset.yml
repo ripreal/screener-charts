@@ -3,7 +3,7 @@ kind: StatefulSet
 metadata:
   name: {{ .Release.Name }}-klines-writer-coinbase
 spec:
-  replicas: 1
+  replicas: {{ int .Values.klineswritercoinbase.replicaCount }}
   serviceName: {{ .Release.Name }}-klines-writer-coinbase
   selector:
     matchLabels:

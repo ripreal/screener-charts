@@ -88,6 +88,10 @@ downloaderokx:
   replicaCount: 1
   resources: {}
 
+alertmanager:
+  replicaCount: 1
+  resources: {}
+
 #PROD
 #postgresql:
 #  nameOverride: colombo.postgres.database.azure.com

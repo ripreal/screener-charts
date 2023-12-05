@@ -3,7 +3,7 @@ kind: StatefulSet
 metadata:
   name: {{ .Release.Name }}-synchronizer
 spec:
-  replicas: 1
+  replicas: {{ int .Values.synchronizer.replicaCount }}
   serviceName: {{ .Release.Name }}-synchronizer
   selector:
     matchLabels:

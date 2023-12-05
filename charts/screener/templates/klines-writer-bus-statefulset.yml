@@ -3,7 +3,7 @@ kind: StatefulSet
 metadata:
   name: {{ .Release.Name }}-klines-writer-bus
 spec:
-  replicas: 1
+  replicas: {{ int .Values.klineswriterbus.replicaCount }}
   serviceName: {{ .Release.Name }}-klines-writer-bus
   selector:
     matchLabels:
