@@ -1,0 +1,72 @@
+[
+    {
+        "templateId": "PRICE_CROSSING_ALERT",
+        "lang": {
+            "ru": "%EXCHANGE%:%SYMBOL% Пересечение заданного значения цены.\nЗадано: %SET_PRICE% \nТекущая: %KLINE_PRICE%",
+            "en": "%EXCHANGE%:%SYMBOL% Пересечение заданного значения цены.\nЗадано: %SET_PRICE% \nТекущая: %KLINE_PRICE%"
+        }
+    },
+    {
+        "templateId": "SPECIFY_EMAIL",
+        "lang": {
+            "ru": "Для верификации в сервисе CryptoTradingLab, напишите свой email, под которым вы зарегистрированы.",
+            "en": "Для верификации в сервисе CryptoTradingLab, напишите свой email, под которым вы зарегистрированы."
+        }
+    },
+    {
+        "templateId": "AUTHENTIFICATION_COMPLETED",
+        "lang": {
+            "ru": "You authenticated successfully. To unsubscribe print /stop",
+            "en": "You authenticated successfully. To unsubscribe print /stop"
+        }
+    },
+    {
+        "templateId": "BOT_ALREADY_ENABLED",
+        "lang": {
+            "ru": "Bot already was enabled. To unsubscribe print /stop",
+            "en": "Bot already was enabled. To unsubscribe print /stop"
+        }
+    },
+    {
+        "templateId": "BOT_ENABLED",
+        "lang": {
+            "ru": "Bot enabled",
+            "en": "Bot enabled"
+        }
+    },
+    {
+        "templateId": "BOT_DISABLED",
+        "lang": {
+            "ru": "You unsubscribed successfully",
+            "en": "You unsubscribed successfully"
+        }
+    },
+    {
+        "templateId": "USER_NOT_FOUND",
+        "lang": {
+            "ru": "User not found. Register on site first",
+            "en": "User not found. Register on site first"
+        }
+    },
+    {
+        "templateId": "SET_ALERT_WRONG_COMMAND",
+        "lang": {
+            "ru": "Wrong alert set command. Should be for example ALERT BINANCE SPOT BTCUSDT 37500",
+            "en": "Wrong alert set command. Should be for example ALERT BINANCE SPOT BTCUSDT 37500"
+        }
+    },
+    {
+        "templateId": "SET_ALERT_FAILED",
+        "lang": {
+            "ru": "Failed to created alert. Check parameters",
+            "en": "Failed to created alert. Check parameters"
+        }
+    },
+    {
+        "templateId": "ALERT_ENABLED",
+        "lang": {
+            "ru": "Alert created successfully",
+            "en": "Alert created successfully"
+        }
+    }
+]
