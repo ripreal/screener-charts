@@ -29,6 +29,8 @@ spec:
             value: spot
           - name: RABBIT_URI
             value: amqp://{{ .Values.rabbitmq.auth.username }}:admin@{{ .Release.Name }}-{{ .Values.rabbitmq.nameOverride}}:5672
+          - name: RABBIT_CONNECTION_POOL
+            value: 2
           image: {{ .Values.image.repository }}/klines-listener:{{ .Values.image.tag }}
           imagePullPolicy: Always
           name: {{ .Release.Name }}-klines-listener-coinbase-spot
